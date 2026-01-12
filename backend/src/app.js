@@ -16,8 +16,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors({
-  origin: "*", 
-  credentials: true,
+  origin: "https://intelliquiz-one.vercel.app",
+  credentials: true
 }));
 app.use(express.json());
 
