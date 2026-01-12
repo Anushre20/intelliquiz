@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +14,12 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  /* =======================
+     BACKEND BASE URL
+     (comes from Vercel env)
+  ======================= */
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   /* =======================
      REDIRECT IF LOGGED IN
@@ -33,13 +40,15 @@ export default function AuthPage() {
     setLoading(true);
 
     const endpoint = isLogin
-      ? "http://localhost:5001/api/auth/login"
-      : "http://localhost:5001/api/auth/register";
+      ? `${BASE_URL}/api/auth/login`
+      : `${BASE_URL}/api/auth/register`;
 
     try {
       const res = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(
           isLogin
             ? { email, password }
@@ -55,7 +64,7 @@ export default function AuthPage() {
         return;
       }
 
-      // ✅ Save auth
+      // ✅ Save auth data
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
@@ -105,7 +114,9 @@ export default function AuthPage() {
             />
 
             {error && (
-              <p className="text-sm text-destructive text-center">{error}</p>
+              <p className="text-sm text-destructive text-center">
+                {error}
+              </p>
             )}
 
             <Button
@@ -136,3 +147,4 @@ export default function AuthPage() {
     </div>
   );
 }
+
