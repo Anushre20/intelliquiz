@@ -57,7 +57,18 @@ export default function AuthPage() {
         ),
       });
 
-      const data = await res.json();
+      const text = await res.text();
+
+let data;
+try {
+  data = JSON.parse(text);
+} catch {
+  console.error("Non-JSON response:", text);
+  setError("Server error");
+  setLoading(false);
+  return;
+}
+
 
       if (!res.ok) {
         setError(data.message || "Authentication failed");
