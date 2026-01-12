@@ -11,6 +11,9 @@ const profileRoutes = require("./routes/profileRoutes");
 const leaderboardRoutes = require("./routes/leaderboardRoutes");
 
 const app = express();
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
 
 app.use(cors({
   origin: "*", 
