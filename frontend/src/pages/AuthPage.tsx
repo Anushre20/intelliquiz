@@ -19,7 +19,8 @@ export default function AuthPage() {
      BACKEND BASE URL
      (comes from Vercel env)
   ======================= */
-  const BASE_URL = import.meta.env.VITE_API_URL;
+  const BASE_URL = process.env.REACT_APP_API_URL;
+
   console.log("BASE_URL:", BASE_URL);
 
   /* =======================
